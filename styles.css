@@ -215,16 +215,11 @@ h1 {
 
 .hero-spectrum {
   display: inline;
-  background: linear-gradient(135deg, #7f59ff 0%, #2a62d9 38%, #179a73 68%, #7f59ff 100%);
-  background-size: 240% 240%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-shadow: 0 0 20px rgba(127, 89, 255, 0.14);
-  animation:
-    spectrum-shift 6.5s linear infinite,
-    hue-float 11s ease-in-out infinite;
+  color: #6f5cff;
+  text-shadow:
+    0 0 12px rgba(127, 89, 255, 0.12),
+    0 0 24px rgba(42, 98, 217, 0.08);
+  animation: hero-hue-cycle 8s linear infinite;
   white-space: nowrap;
 }
 
@@ -1188,6 +1183,33 @@ tbody td:nth-child(4) {
   }
   100% {
     background-position: 0% 50%;
+  }
+}
+
+@keyframes hero-hue-cycle {
+  0% {
+    color: #7f59ff;
+    text-shadow:
+      0 0 12px rgba(127, 89, 255, 0.14),
+      0 0 24px rgba(127, 89, 255, 0.08);
+  }
+  33% {
+    color: #2a62d9;
+    text-shadow:
+      0 0 12px rgba(42, 98, 217, 0.14),
+      0 0 24px rgba(42, 98, 217, 0.08);
+  }
+  66% {
+    color: #179a73;
+    text-shadow:
+      0 0 12px rgba(23, 154, 115, 0.14),
+      0 0 24px rgba(23, 154, 115, 0.08);
+  }
+  100% {
+    color: #7f59ff;
+    text-shadow:
+      0 0 12px rgba(127, 89, 255, 0.14),
+      0 0 24px rgba(127, 89, 255, 0.08);
   }
 }
 
