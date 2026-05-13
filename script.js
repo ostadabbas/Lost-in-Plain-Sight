@@ -44,7 +44,7 @@ const heroTranscript = [
 const avoeSlides = [
   {
     question: "Does the right object change direction after the collision?",
-    video: "./site_videos/figure-3-row-1.mp4",
+    video: "site_videos/figure-3-row-1.mp4",
     note: "Ground truth: Yes. The right object reverses after contact.",
     answers: [
       { model: "ChatGPT", value: "No", correct: false },
@@ -53,7 +53,7 @@ const avoeSlides = [
   },
   {
     question: "Does the right object change direction after the collision?",
-    video: "./site_videos/figure-3-row-2.mp4",
+    video: "site_videos/figure-3-row-2.mp4",
     note: "Ground truth: No. The trajectory keeps its direction.",
     answers: [
       { model: "ChatGPT", value: "Yes", correct: false },
@@ -62,7 +62,7 @@ const avoeSlides = [
   },
   {
     question: "Does the left object change direction after the collision?",
-    video: "./site_videos/figure-3-row-3.mp4",
+    video: "site_videos/figure-3-row-3.mp4",
     note: "Ground truth: No. The left object does not reverse.",
     answers: [
       { model: "ChatGPT", value: "Yes", correct: false },
@@ -75,7 +75,7 @@ const teacupSlides = [
   {
     prompt:
       "Describe the complete sequence of motion and events in this video from start to finish. Focus specifically on the dynamics of the scene.",
-    video: "./site_videos/figure-4-top.mp4",
+    video: "site_videos/figure-4-top.mp4",
     model: "Gemini-2.5-Pro output",
     response: [
       { text: "...The teacup undergoes a full 360-degree axial rotation. " },
@@ -85,7 +85,7 @@ const teacupSlides = [
   {
     prompt:
       "Describe the complete sequence of motion and events in this video from start to finish. Focus specifically on the dynamics of the scene.",
-    video: "./site_videos/figure-4-middle.mp4",
+    video: "site_videos/figure-4-middle.mp4",
     model: "Gemini-2.5-Pro output",
     response: [
       { text: "...The primary motion is a steady, horizontal rotation of the teacup around its vertical center axis. " },
@@ -95,7 +95,7 @@ const teacupSlides = [
   {
     prompt:
       "Describe the complete sequence of motion and events in this video from start to finish. Focus specifically on the dynamics of the scene.",
-    video: "./site_videos/figure-4-bottom.mp4",
+    video: "site_videos/figure-4-bottom.mp4",
     model: "Gemini-2.5-Pro output",
     response: [
       { text: "...The teacup begins to rotate around its vertical central axis in a " },
@@ -107,7 +107,7 @@ const teacupSlides = [
 const syntheticSlides = [
   {
     prompt: "Explain the motion of the sphere in this video.",
-    video: "./site_videos/figure-5-top-left.mp4",
+    video: "site_videos/figure-5-top-left.mp4",
     model: "Gemini-2.5-Pro output",
     response: [
       {
@@ -123,7 +123,7 @@ const syntheticSlides = [
   },
   {
     prompt: "Describe the interaction of the two cubes.",
-    video: "./site_videos/figure-5-top-right.mp4",
+    video: "site_videos/figure-5-top-right.mp4",
     model: "Gemini-2.5-Pro output",
     response: [
       {
@@ -140,7 +140,7 @@ const syntheticSlides = [
   {
     prompt:
       "Analyze the video and describe the dynamics and motion of all objects present in the scene.",
-    video: "./site_videos/figure-5-bottom-left.mp4",
+    video: "site_videos/figure-5-bottom-left.mp4",
     model: "Gemini-2.5-Pro output",
     response: [
       { text: "...The left pendulum initiates the action, swinging inward to the right..." },
@@ -153,7 +153,7 @@ const syntheticSlides = [
   },
   {
     prompt: "Describe the trajectory of the moving objects from beginning to end.",
-    video: "./site_videos/figure-5-bottom-right.mp4",
+    video: "site_videos/figure-5-bottom-right.mp4",
     model: "Gemini-2.5-Pro output",
     response: [
       { text: "The video captures the movement of two yellow tennis balls " },
