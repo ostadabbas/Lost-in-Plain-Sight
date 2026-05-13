@@ -219,9 +219,21 @@ h1 {
   background-size: 220% 220%;
   -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: transparent;
   animation: spectrum-shift 7.5s linear infinite;
   white-space: nowrap;
+}
+
+.hero-spectrum.is-static {
+  display: inline;
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: currentColor;
+  color: var(--violet);
+  text-shadow: 0 0 18px rgba(127, 89, 255, 0.16);
+  animation: none;
 }
 
 .hero-spectrum .letter {
@@ -1313,6 +1325,11 @@ body.spectral-mode .text-panel {
   }
 
   .hero-spectrum {
+    white-space: normal;
+  }
+
+  .hero-spectrum.is-static {
+    display: inline;
     white-space: normal;
   }
 

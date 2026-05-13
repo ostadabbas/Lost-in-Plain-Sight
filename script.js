@@ -825,22 +825,43 @@ function setupEasterEgg() {
 
 function setupHeroSpectrum() {
   if (!heroSpectrum) return;
-  const text = heroSpectrum.textContent.trim();
-  heroSpectrum.textContent = "";
-  [...text].forEach((character) => {
-    if (character === " ") {
-      const spacer = document.createElement("span");
-      spacer.className = "space";
-      spacer.textContent = " ";
-      heroSpectrum.appendChild(spacer);
+  const hoverCapableQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const baseText = heroSpectrum.dataset.text || heroSpectrum.textContent.trim();
+  heroSpectrum.dataset.text = baseText;
+
+  function renderSpectrum() {
+    heroSpectrum.textContent = "";
+
+    if (!hoverCapableQuery.matches) {
+      heroSpectrum.classList.add("is-static");
+      heroSpectrum.textContent = baseText;
       return;
     }
 
-    const span = document.createElement("span");
-    span.className = "letter";
-    span.textContent = character;
-    heroSpectrum.appendChild(span);
-  });
+    heroSpectrum.classList.remove("is-static");
+    [...baseText].forEach((character) => {
+      if (character === " ") {
+        const spacer = document.createElement("span");
+        spacer.className = "space";
+        spacer.textContent = " ";
+        heroSpectrum.appendChild(spacer);
+        return;
+      }
+
+      const span = document.createElement("span");
+      span.className = "letter";
+      span.textContent = character;
+      heroSpectrum.appendChild(span);
+    });
+  }
+
+  renderSpectrum();
+
+  if (typeof hoverCapableQuery.addEventListener === "function") {
+    hoverCapableQuery.addEventListener("change", renderSpectrum);
+  } else if (typeof hoverCapableQuery.addListener === "function") {
+    hoverCapableQuery.addListener(renderSpectrum);
+  }
 }
 
 function setupReveal() {
