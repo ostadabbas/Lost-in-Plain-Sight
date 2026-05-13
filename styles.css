@@ -215,45 +215,17 @@ h1 {
 
 .hero-spectrum {
   display: inline;
-  background: linear-gradient(135deg, #7f59ff 0%, #2a62d9 42%, #179a73 78%, #7f59ff 100%);
-  background-size: 220% 220%;
+  background: linear-gradient(135deg, #7f59ff 0%, #2a62d9 38%, #179a73 68%, #7f59ff 100%);
+  background-size: 240% 240%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  animation: spectrum-shift 7.5s linear infinite;
+  text-shadow: 0 0 20px rgba(127, 89, 255, 0.14);
+  animation:
+    spectrum-shift 6.5s linear infinite,
+    hue-float 11s ease-in-out infinite;
   white-space: nowrap;
-}
-
-.hero-spectrum.is-static {
-  display: inline;
-  background: none;
-  -webkit-background-clip: border-box;
-  background-clip: border-box;
-  -webkit-text-fill-color: currentColor;
-  color: var(--violet);
-  text-shadow: 0 0 18px rgba(127, 89, 255, 0.16);
-  animation: none;
-}
-
-.hero-spectrum .letter {
-  display: inline-block;
-  color: inherit;
-  transition:
-    opacity 140ms ease,
-    transform 140ms ease,
-    filter 140ms ease;
-}
-
-.hero-spectrum .letter:hover {
-  opacity: 0.42;
-  transform: translateY(-1px);
-  filter: blur(0.6px);
-  animation: letter-flicker 0.32s steps(2) 3;
-}
-
-.hero-spectrum .space {
-  display: inline;
 }
 
 h2 {
@@ -1325,11 +1297,6 @@ body.spectral-mode .text-panel {
   }
 
   .hero-spectrum {
-    white-space: normal;
-  }
-
-  .hero-spectrum.is-static {
-    display: inline;
     white-space: normal;
   }
 
