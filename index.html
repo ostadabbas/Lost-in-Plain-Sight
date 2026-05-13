@@ -1,301 +1,413 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lost in Plain Sight | Interactive Overview</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header class="hero">
-    <div class="container">
-      <span class="kicker">Position Paper [under review]</span>
-      <h1>Position: Video LLMs Must Not Ignore the Pixel Dynamics in Plain Sight</h1>
-      <p class="lead">
-        The essence of video lies in pixel dynamics: motion, state transitions, and the flow of visual information across frames.
-      </p>
-      <p class="meta author-line">
-        Shayda Moezzi<sup>1</sup>, Umer Saleem<sup>1</sup>, Andong Deng<sup>2</sup>, Chen Chen<sup>2</sup>, Sarah Ostadabbas<sup>1</sup>
-      </p>
-      <p class="meta affiliation-line"><sup>1</sup> Electrical and Computer Engineering Department, Northeastern University, Boston, MA, USA</p>
-      <p class="meta affiliation-line"><sup>2</sup> Department of Computer Science, University of Central Florida, Orlando, FL, USA</p>
-      <div class="hero-cta">
-        <a class="paper-link" href="P_Moezzi_Deng_Position.pdf" target="_blank" rel="noopener">Paper</a>
-      </div>
-      <div class="hero-nav">
-        <a class="hero-link" href="#overview">Overview</a>
-        <a class="hero-link" href="#illusion">Illusion of Success</a>
-        <a class="hero-link" href="#failure1">Failure Mode 1</a>
-        <a class="hero-link" href="#failure2">Failure Mode 2</a>
-        <a class="hero-link" href="#action">Call to Action</a>
-      </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lost in Plain Sight</title>
+    <meta
+      name="description"
+      content="Interactive project page for Lost in Plain Sight: Video LLMs Must Not Ignore the Pixel Dynamics in Plain Sight."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <canvas class="background-canvas" id="background-canvas" aria-hidden="true"></canvas>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="wordmark" id="wordmark-toggle" href="#top">Lost in Plain Sight</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#introduction">Introduction</a>
+          <a href="#illusion">Illusion of Success</a>
+          <a href="#failure-modes">Failure Modes</a>
+          <a href="#alternative-views">Alternative Views</a>
+          <a href="#call-to-action">Call to Action</a>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero" id="introduction">
+          <div class="hero-copy" data-reveal>
+            <p class="meta-line">ICML 2026 Position Paper Track</p>
+            <h1>
+              Video LLMs Must Not Ignore the
+              <span class="hero-spectrum" id="hero-spectrum" aria-label="Pixel Dynamics in Plain Sight">
+                Pixel Dynamics in Plain Sight
+              </span>
+            </h1>
+            <div class="hero-typewriter-block">
+              <button class="thinking-chip" type="button" aria-label="Model is thinking">
+                &lt;thinking&gt;
+              </button>
+              <div class="typewriter-shell hero-summary" id="hero-typewriter"></div>
+            </div>
+            <div class="hero-actions">
+              <a
+                class="button button-primary"
+                href="P_Moezzi_Deng_Position.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Read the paper
+              </a>
+            </div>
+            <div class="author-block">
+              <p class="author-line">
+                Shayda Moezzi<sup>1</sup>, Umer Saleem<sup>1</sup>, Andong Deng<sup>2</sup>,
+                Chen Chen<sup>2</sup>, Sarah Ostadabbas<sup>1</sup>
+              </p>
+              <p class="affiliation-line"><sup>1</sup> Northeastern University</p>
+              <p class="affiliation-line"><sup>2</sup> University of Central Florida</p>
+            </div>
+          </div>
+
+          <div class="hero-figure" data-reveal>
+            <figure class="overview-figure">
+              <img src="./figs/main_fig.jpg" alt="Overview of the two failure modes." />
+            </figure>
+            <div class="failure-mode-grid">
+              <article class="failure-mode-card">
+                <p class="label">Static-Cue Dominance</p>
+                <p>
+                  Salient appearance and context can overshadow low-signal but
+                  decisive pixel dynamics, causing state transitions and motion
+                  to be underweighted or missed.
+                </p>
+              </article>
+              <article class="failure-mode-card">
+                <p class="label">Prior-Driven Temporal Hallucination</p>
+                <p>
+                  Learned event priors can override the observed motion and
+                  complete the most likely script even when the video shows
+                  otherwise.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <div class="paper-text intro-text" data-reveal>
+            <p>
+              Video is inherently temporal: the meaning of an event often lies
+              not in what appears in a single moment, but in how states change,
+              interact, and unfold over time. Video makes this dynamic
+              structure explicit by encoding motion, interaction, and causality
+              directly in pixel-level changes across time.
+            </p>
+            <p>
+              Together, these patterns misorder the evidence hierarchy of video
+              understanding, allowing models to succeed without explicitly
+              tracking state evolution over time. Temporal and causal claims
+              must therefore remain grounded in observed pixel dynamics.
+            </p>
+          </div>
+        </section>
+
+        <section class="section" id="illusion">
+          <div class="section-heading" data-reveal>
+            <h2>The Illusion of Success: Benchmark Alignment and Architectural Biases</h2>
+          </div>
+
+          <div class="paper-text" data-reveal>
+            <p>
+              Current Video LLMs achieve remarkable performance on recent video
+              benchmarks, yet these systems still fail at rudimentary temporal
+              understanding and movement perception. The apparent success of
+              these models often reflects how well they satisfy benchmark
+              requirements, not necessarily how well they perceive temporal
+              dynamics.
+            </p>
+          </div>
+
+          <div class="split-notes" data-reveal>
+            <article class="text-panel">
+              <h3>A Benchmark Perspective</h3>
+              <p>
+                If a video understanding benchmark can be solved without seeing
+                the video, it is not measuring video understanding; it is
+                measuring language reasoning. Frame shuffling, semantic-only
+                probes, and shortcut-aware diagnostics repeatedly show how weak
+                current progress metrics can be with respect to time.
+              </p>
+            </article>
+            <article class="text-panel">
+              <h3>An Architecture Perspective</h3>
+              <p>
+                Current architectures systematically compress or defer temporal
+                information. Image-first encoders, shallow fusion modules, and
+                language-heavy reasoning stacks preserve object semantics far
+                more reliably than the dynamics that emerge only through
+                transitions over time.
+              </p>
+            </article>
+          </div>
+
+          <article class="feature-block typewriter-block" id="cradle-block" data-reveal>
+            <div class="feature-media">
+              <p class="prompt-line">Describe the motion of the balls in the video.</p>
+              <video
+                src="./site_videos/figure-2-cradle.mp4"
+                muted
+                loop
+                playsinline
+                controls
+                preload="metadata"
+              ></video>
+            </div>
+            <div class="feature-copy">
+              <p>
+                The physically invalid Newton’s cradle makes the problem
+                unusually clear. The rightmost ball remains stationary after
+                impact, yet the model restores the canonical momentum-transfer
+                story.
+              </p>
+              <div class="typewriter-shell" id="cradle-typewriter"></div>
+            </div>
+          </article>
+        </section>
+
+        <section class="section" id="failure-modes">
+          <div class="section-heading" data-reveal>
+            <h2>Failure Modes of Current Video LLMs</h2>
+          </div>
+
+          <div class="paper-text" data-reveal>
+            <p>
+              Video LLMs can appear temporally competent while systematically
+              underusing the very signal that makes video distinct: dynamic
+              evolution in pixels. Across recent diagnostic probes, two
+              recurring patterns emerge.
+            </p>
+          </div>
+
+          <div class="mode-section" data-reveal>
+            <h3>Failure Mode 1: Static-Cue Dominance</h3>
+            <p>
+              The prevailing paradigm still inherits an image-language bias:
+              video is treated as a set of sampled frames rather than a
+              continuous spatiotemporal signal. When appearance is held nearly
+              fixed and only the trajectory changes, even simple motion
+              primitives become fragile.
+            </p>
+          </div>
+
+          <section class="table-section" data-reveal>
+            <div class="table-intro">
+              <h4>Motivating Motion Probes on Simulated Physics</h4>
+              <p>
+                Accuracy (%) on 3 second collision videos from AVoE using 16
+                sampled frames and a binary Yes/No task: does the left/right
+                object change direction after collision?
+              </p>
+            </div>
+            <div class="table-shell">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Model</th>
+                    <th>Input Frames</th>
+                    <th>Expected</th>
+                    <th>Surprising</th>
+                  </tr>
+                </thead>
+                <tbody id="results-table"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <article class="carousel-block" data-reveal>
+            <div class="carousel-head">
+              <div>
+                <h3>Direction-change probes</h3>
+                <p>
+                  These 3 second collision clips isolate the binary question of
+                  direction change after impact while holding appearance nearly
+                  fixed. Across all three examples, both models answer
+                  incorrectly.
+                </p>
+              </div>
+              <div class="carousel-controls" id="avoe-controls"></div>
+            </div>
+            <div class="carousel-shell" id="avoe-carousel"></div>
+          </article>
+
+          <article class="carousel-block" data-reveal>
+            <div class="carousel-head">
+              <div>
+                <h3>Motion blindness</h3>
+                <p>
+                  Directionality is encoded only across time. Across these
+                  clips, the model repeatedly misclassifies clockwise rotation
+                  as counter-clockwise.
+                </p>
+              </div>
+              <div class="carousel-controls" id="teacup-controls"></div>
+            </div>
+            <div class="carousel-shell" id="teacup-carousel"></div>
+          </article>
+
+          <div class="mode-section" data-reveal>
+            <h3>Failure Mode 2: Prior-Driven Temporal Hallucination</h3>
+            <p>
+              When the visual evidence is subtle or counterintuitive, Video
+              LLMs often do not default to uncertainty. Instead, they
+              hallucinate a false reality, substituting canonical event scripts
+              for evidence-based state tracking.
+            </p>
+          </div>
+
+          <article class="carousel-block" data-reveal>
+            <div class="carousel-head">
+              <div>
+                <h3>Isolating dynamics in plain sight</h3>
+                <p>
+                  These examples expose environmental hallucination, role
+                  reversal, invented trajectories, and fabricated causal
+                  mechanisms under motion-focused prompting.
+                </p>
+              </div>
+              <div class="carousel-controls" id="synthetic-controls"></div>
+            </div>
+            <div class="carousel-shell" id="synthetic-carousel"></div>
+          </article>
+
+          <article class="feature-block" data-reveal>
+            <div class="feature-media">
+              <p class="prompt-line">
+                Describe the complete sequence of motion and events in this
+                video from start to finish. Focus specifically on the dynamics
+                of the scene.
+              </p>
+              <video
+                src="./site_videos/figure-6-teleportation.mp4"
+                muted
+                loop
+                playsinline
+                controls
+                preload="metadata"
+              ></video>
+            </div>
+            <div class="feature-copy">
+              <h3>Causal fabrication</h3>
+              <p>
+                In an IntPhys2 teleportation video, the ball appears on the
+                other side of a wall after a camera pan. Rather than identifying
+                a physical impossibility, the model fabricates an impact-driven
+                wall rotation.
+              </p>
+              <p class="model-line">Gemini-2.5-Pro output</p>
+              <blockquote>
+                “The force of the moving ball strikes the left side of this
+                panel. This transfer of kinetic energy causes the panel to pivot
+                sharply on its vertical axis.”
+              </blockquote>
+            </div>
+          </article>
+
+          <section class="benchmark-section" data-reveal>
+            <div class="section-heading section-heading-left">
+              <h3>Diagnostic probes across both failure modes</h3>
+              <p>
+                Recent benchmark design increasingly exposes the same blind
+                spot: the models are often fluent about time without being
+                reliably grounded in it.
+              </p>
+            </div>
+            <div class="benchmark-toolbar">
+              <label class="search-field">
+                <span>Search</span>
+                <input
+                  id="benchmark-search"
+                  type="search"
+                  placeholder="Search benchmark, probe, or blind spot"
+                />
+              </label>
+              <div class="filter-row" id="benchmark-filters" aria-label="Benchmark filters"></div>
+            </div>
+            <div class="benchmark-layout">
+              <div class="benchmark-list" id="benchmark-list"></div>
+            </div>
+          </section>
+        </section>
+
+        <section class="section" id="alternative-views">
+          <div class="section-heading" data-reveal>
+            <h2>Alternative Views</h2>
+          </div>
+          <div class="counterpoint-stage" data-reveal>
+            <div class="counterpoint-rail" id="counterpoint-rail" role="tablist" aria-label="Alternative viewpoints"></div>
+            <article class="counterpoint-panel" id="counterpoint-panel">
+              <div class="counterpoint-topline">
+                <span class="label">Counterpoint</span>
+                <span class="counterpoint-index" id="counterpoint-index">01</span>
+              </div>
+              <h3 id="counterpoint-title"></h3>
+              <p class="counterpoint-summary" id="counterpoint-summary"></p>
+              <div class="counterpoint-columns">
+                <div class="counterpoint-block">
+                  <h4>What the argument gets right</h4>
+                  <p id="counterpoint-agree"></p>
+                </div>
+                <div class="counterpoint-block">
+                  <h4>Where the paper draws the line</h4>
+                  <p id="counterpoint-response"></p>
+                </div>
+              </div>
+              <div class="counterpoint-extended" id="counterpoint-extended"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="call-to-action">
+          <div class="section-heading" data-reveal>
+            <h2>Call to Action: Towards Dynamically-Aware Video Understanding</h2>
+            <p>
+              Progress in video understanding will not come from scaling context
+              windows or language-model capacity alone, but from representational,
+              structural, and evaluative changes that make spatiotemporal evidence
+              unavoidable.
+            </p>
+          </div>
+          <div class="action-orbit" data-reveal>
+            <div class="orbit-bubbles" id="orbit-bubbles" role="tablist" aria-label="Call to action themes"></div>
+            <article class="orbit-panel" id="orbit-panel">
+              <div class="orbit-topline">
+                <span class="label">Exploration</span>
+                <span class="orbit-step" id="orbit-step">1 / 3</span>
+              </div>
+              <h3 id="orbit-title"></h3>
+              <p class="orbit-summary" id="orbit-summary"></p>
+              <div class="orbit-detail-grid">
+                <div class="orbit-detail-card">
+                  <h4>Core claim</h4>
+                  <p id="orbit-core"></p>
+                </div>
+                <div class="orbit-detail-card">
+                  <h4>Why it matters</h4>
+                  <p id="orbit-why"></p>
+                </div>
+              </div>
+              <div class="orbit-expanders" id="orbit-expanders"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>
+          Published in the ICML 2026 Position Paper Track.
+        </p>
+        <p>
+          Moezzi, Saleem, Deng, Chen, and Ostadabbas. <em>Lost in Plain Sight:
+          Video LLMs Must Not Ignore the Pixel Dynamics in Plain Sight.</em>
+        </p>
+      </footer>
     </div>
-  </header>
 
-  <main>
-    <div class="container">
-      <section id="overview">
-        <h2>Overview</h2>
-        <p>
-          The essence of video lies in pixel dynamics: motion, state transitions, and the flow of visual information across frames.
-          In this position paper, we argue that recent progress in video understanding is measured by benchmarks and protocols that can be solved
-          without reliably perceiving spatiotemporal evidence, rewarding language-driven plausibility over video-grounded inference.
-        </p>
-        <figure class="figure-inline">
-          <img src="figs/main_fig.jpg" alt="Overview of Video LLM Failure Modes">
-          <figcaption>
-            <strong>Overview of Video LLM Failure Modes.</strong> Static-cue dominance and prior-driven temporal hallucination jointly misorder the
-            evidence hierarchy of video understanding.
-          </figcaption>
-        </figure>
-      </section>
-
-      <section id="illusion">
-        <h2>The Illusion of Success: Benchmark Alignment and Architectural Biases</h2>
-        <div class="two-col">
-          <article class="card">
-            <h3>A Benchmark Perspective</h3>
-            <p>
-              If a video understanding benchmark can be solved without seeing the video, it is not measuring video understanding; it is measuring language reasoning.
-              A large proportion of widely used benchmark questions are LLM-answerable, and additional subsets are semantic-only, solvable even when frame order is disrupted.
-            </p>
-          </article>
-          <article class="card">
-            <h3>An Architecture Perspective</h3>
-            <p>
-              Current architectures are effective for scaling, but they also systematically compress or defer temporal information, biasing the system toward language-driven inference.
-              In this regime, what is present is represented better than what changes.
-            </p>
-          </article>
-        </div>
-        <figure class="figure-inline">
-          <img src="figs/cradle.jpg" alt="Prior-Driven Hallucination on a Physics Violation">
-          <figcaption>
-            <strong>Prior-Driven Hallucination on a Physics Violation.</strong> The rightmost ball remains stationary after impact, yet the model describes
-            the canonical momentum-transfer outcome.
-          </figcaption>
-        </figure>
-      </section>
-
-      <section id="failure1">
-        <h2>Failure Mode 1: Static-Cue Dominance</h2>
-        <span class="chip chip-static">Failure Mode 1</span>
-        <p>
-          Video LLMs can appear temporally competent while systematically underusing the very signal that makes video distinct: dynamic evolution in pixels.
-          In this failure mode, appearance and context outweigh spatiotemporal evidence.
-        </p>
-        <div class="two-col">
-          <figure class="figure-inline">
-            <img src="figs/intphys2_teacup.jpg" alt="Visualizing Motion Blindness">
-            <figcaption>
-              <strong>Visualizing Motion Blindness.</strong> The model repeatedly misclassifies rotation direction in a motion-focused probe.
-            </figcaption>
-          </figure>
-          <figure class="figure-inline">
-            <img src="figs/avoe_example.jpg" alt="Directionality Error Example from AVoE">
-            <figcaption>
-              Controlled AVoE collisions isolate motion primitives and expose weak tracking of direction changes.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      <section id="failure2">
-        <h2>Failure Mode 2: Prior-driven Temporal Hallucination</h2>
-        <span class="chip chip-prior">Failure Mode 2</span>
-        <p>
-          When the visual evidence in a video is subtle or counterintuitive, Video LLMs often do not default to uncertainty.
-          Instead, they hallucinate a false reality: canonical event scripts substitute for evidence-based state tracking.
-        </p>
-        <figure class="figure-inline">
-          <img src="figs/grok_quantiphy_examples.jpg" alt="Isolating Dynamics in Plain Sight">
-          <figcaption>
-            <strong>Isolating Dynamics in Plain Sight.</strong> The model invents unseen causes and misses visible events when priors dominate temporal evidence.
-          </figcaption>
-        </figure>
-        <figure class="figure-inline">
-          <img src="figs/intphys_impossible.jpg" alt="Causal Fabrication">
-          <figcaption>
-            <strong>Causal Fabrication.</strong> Impossible transitions are explained with detailed mechanics that never occur in the video.
-          </figcaption>
-        </figure>
-      </section>
-
-      <section>
-        <h2>Diagnostic Walkthrough</h2>
-        <p class="quote">
-          To move beyond aggregate benchmarks, these examples highlight a fundamental inability to distinguish specific motion primitives
-          even in simple scenes, and a tendency to complete likely narratives when evidence is counterintuitive.
-        </p>
-        <div class="tabs" id="tabs"></div>
-        <div class="focus-figure">
-          <img id="focusImage" src="figs/main_fig.jpg" alt="Focused diagnostic figure">
-          <h4 id="focusTitle">Overview of Video LLM Failure Modes</h4>
-          <p id="focusText">Static-cue dominance and prior-driven temporal hallucination are coupled failure modes.</p>
-        </div>
-      </section>
-
-      <section>
-        <h2>Alternative Views</h2>
-        <div class="two-col">
-          <article class="card">
-            <h3>Reliance on static semantics and world knowledge is a rational and efficient design choice.</h3>
-            <p>
-              Static cues are a powerful first approximation. However, predictiveness should not be conflated with understanding.
-              A system that cannot reliably abandon shortcuts when they become misleading is not truly video-aware.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Dropping language backbones and reverting to video-native architectures is a false dichotomy.</h3>
-            <p>
-              The path forward is agentic and evidence-gated: use language-model reasoning while enforcing explicit consistency checks
-              against observed spatiotemporal evidence.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section id="action">
-        <h2>Call to Action: Towards Dynamically-Aware Video Understanding</h2>
-        <div class="two-col">
-          <article class="card">
-            <h3>Representational Shifts</h3>
-            <p>
-              The fundamental unit of video understanding should not be static objects, but transformations over time.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Structurally Enforced Spatiotemporal Grounding</h3>
-            <p>
-              Generation should be explicitly constrained by spatiotemporal visual evidence.
-            </p>
-          </article>
-        </div>
-        <article class="card" style="margin-top: 12px;">
-          <h3>Evaluation and Benchmark Standards</h3>
-          <p>
-            Benchmarks should satisfy temporal sensitivity, evidence localization, and pixel-level verifiability.
-            Recognizing what did not happen is as critical as recognizing what did.
-          </p>
-        </article>
-      </section>
-
-    </div>
-  </main>
-
-  <div class="lightbox" id="lightbox" aria-hidden="true">
-    <button class="lightbox-close" id="lightboxClose" aria-label="Close image view">×</button>
-    <img id="lightboxImage" alt="Expanded figure">
-  </div>
-
-  <script>
-    const FIGURES = [
-      {
-        key: "overview",
-        label: "Overview",
-        src: "figs/main_fig.jpg",
-        title: "Overview of Video LLM Failure Modes",
-        text: "Static-cue dominance and prior-driven temporal hallucination are the two coupled failure modes."
-      },
-      {
-        key: "cradle",
-        label: "Cradle",
-        src: "figs/cradle.jpg",
-        title: "Prior-Driven Hallucination on a Physics Violation",
-        text: "The model overrides dynamic evidence in favor of a fluent physics-compliant narrative."
-      },
-      {
-        key: "teacup",
-        label: "Teacup Rotation",
-        src: "figs/intphys2_teacup.jpg",
-        title: "Visualizing Motion Blindness",
-        text: "The model repeatedly misclassifies rotation direction in a motion-focused probe."
-      },
-      {
-        key: "avoe",
-        label: "AVoE",
-        src: "figs/avoe_example.jpg",
-        title: "Directionality Error Example",
-        text: "Controlled binary prompts expose weak tracking of temporal trajectory."
-      },
-      {
-        key: "grok",
-        label: "Synthetic Cases",
-        src: "figs/grok_quantiphy_examples.jpg",
-        title: "Isolating Dynamics in Plain Sight",
-        text: "The model fabricates likely causes instead of grounding answers in observed motion."
-      },
-      {
-        key: "impossible",
-        label: "Impossible Collision",
-        src: "figs/intphys_impossible.jpg",
-        title: "Causal Fabrication",
-        text: "Impossible transitions are explained with detailed mechanics that never occur in the video."
-      }
-    ];
-
-    const tabs = document.getElementById("tabs");
-    const focusImage = document.getElementById("focusImage");
-    const focusTitle = document.getElementById("focusTitle");
-    const focusText = document.getElementById("focusText");
-    const lightbox = document.getElementById("lightbox");
-    const lightboxImage = document.getElementById("lightboxImage");
-    const lightboxClose = document.getElementById("lightboxClose");
-
-    function setFigure(key) {
-      const selected = FIGURES.find((f) => f.key === key) || FIGURES[0];
-      focusImage.src = selected.src;
-      focusImage.alt = selected.title;
-      focusTitle.textContent = selected.title;
-      focusText.textContent = selected.text;
-      document.querySelectorAll(".tab-btn").forEach((btn) => {
-        btn.classList.toggle("active", btn.dataset.key === key);
-      });
-    }
-
-    FIGURES.forEach((figure) => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.className = "tab-btn";
-      btn.dataset.key = figure.key;
-      btn.textContent = figure.label;
-      btn.addEventListener("click", () => setFigure(figure.key));
-      tabs.appendChild(btn);
-    });
-
-    setFigure("overview");
-
-    function openLightbox(src, alt) {
-      lightboxImage.src = src;
-      lightboxImage.alt = alt || "Expanded figure";
-      lightbox.classList.add("open");
-      lightbox.setAttribute("aria-hidden", "false");
-    }
-
-    function closeLightbox() {
-      lightbox.classList.remove("open");
-      lightbox.setAttribute("aria-hidden", "true");
-      lightboxImage.src = "";
-    }
-
-    document.querySelectorAll("img").forEach((img) => {
-      if (img.id !== "lightboxImage") {
-        img.addEventListener("click", () => openLightbox(img.src, img.alt));
-      }
-    });
-
-    lightboxClose.addEventListener("click", closeLightbox);
-    lightbox.addEventListener("click", (event) => {
-      if (event.target === lightbox) {
-        closeLightbox();
-      }
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && lightbox.classList.contains("open")) {
-        closeLightbox();
-      }
-    });
-  </script>
-</body>
+    <script src="./script.js"></script>
+  </body>
 </html>
